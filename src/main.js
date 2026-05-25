@@ -14,7 +14,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.71;
+renderer.toneMappingExposure = 0.64;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 // ─── SCENE & CAMERA ─────────────────────────────────────────────────────────
@@ -45,14 +45,14 @@ let currentSection = 'hero';
 
 // ─── SECTION WAYPOINTS ──────────────────────────────────────────────────────
 // Smaller scales, repositioned so the ball never blocks content.
-// All sections share the SAME scale so the ball never resizes during scroll.
-// y: -1.4 puts the ball center near the viewport bottom — top half visible, bottom off-screen.
-const BALL_SCALE = 0.71;
+// BALL_SCALE 1.77 = 2.5× increase from 0.71.
+// Each section has a DIFFERENT y so the ball visibly moves as you scroll.
+const BALL_SCALE = 1.77;
 const SECTIONS = {
-  hero:   { x: 0.35,  y: -1.4, z: 0, scale: BALL_SCALE }, // center, bottom half off
-  stats:  { x: 2.55,  y: -1.4, z: 0, scale: BALL_SCALE }, // right edge, bottom off
-  how:    { x: -2.4,  y: -1.4, z: 0, scale: BALL_SCALE }, // left edge, bottom off
-  footer: { x: 0.5,   y: -1.4, z: 0, scale: BALL_SCALE }, // center, bottom off
+  hero:   { x: 0.25,  y: -0.45, z: 0, scale: BALL_SCALE }, // center, lower half off screen bottom
+  stats:  { x: 2.2,   y:  0.0,  z: 0, scale: BALL_SCALE }, // right side, center height
+  how:    { x: -2.2,  y:  0.0,  z: 0, scale: BALL_SCALE }, // left side, center height
+  footer: { x: 0.2,   y: -0.35, z: 0, scale: BALL_SCALE }, // center, slightly lower
 };
 
 // ─── LOAD BALL ──────────────────────────────────────────────────────────────
@@ -77,10 +77,10 @@ loader.load('/models/basketball.glb', (gltf) => {
   ball.traverse((child) => {
     if (child.isMesh && child.material) {
       const m = child.material;
-      m.envMapIntensity = 0.2;
-      if (m.roughness !== undefined) m.roughness = Math.min(1.0, Math.max(0.72, (m.roughness ?? 0.5) * 1.3));
+      m.envMapIntensity = 0.15;
+      if (m.roughness !== undefined) m.roughness = Math.min(1.0, Math.max(0.82, (m.roughness ?? 0.5) * 1.55));
       if (m.metalness !== undefined) m.metalness = 0;
-      if (m.color) m.color.multiplyScalar(0.72); // darker, sandy tone
+      if (m.color) m.color.multiplyScalar(0.68); // gritty darker tone
       m.needsUpdate = true;
     }
   });
