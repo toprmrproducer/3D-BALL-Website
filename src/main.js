@@ -14,7 +14,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.3;
+renderer.toneMappingExposure = 1.05;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 // ─── SCENE & CAMERA ─────────────────────────────────────────────────────────
@@ -28,17 +28,14 @@ pmrem.compileEquirectangularShader();
 scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
 // ─── LIGHTING ───────────────────────────────────────────────────────────────
-scene.add(new THREE.AmbientLight(0xfff8f0, 0.6));
-const keyLight = new THREE.DirectionalLight(0xfff5e8, 2.6);
-keyLight.position.set(-3, 5, 4);
+scene.add(new THREE.AmbientLight(0xfff0dd, 0.55));
+const keyLight = new THREE.DirectionalLight(0xffeedd, 1.6);
+keyLight.position.set(-2, 4, 5);
 scene.add(keyLight);
-const fillLight = new THREE.DirectionalLight(0xd0e8ff, 0.8);
-fillLight.position.set(5, 2, -3);
+const fillLight = new THREE.DirectionalLight(0xf5e8d0, 0.35);
+fillLight.position.set(4, 1, -2);
 scene.add(fillLight);
-const rimLight = new THREE.DirectionalLight(0xffeedd, 0.5);
-rimLight.position.set(0, -4, -5);
-scene.add(rimLight);
-scene.add(new THREE.HemisphereLight(0xfff5e0, 0xd4c8b8, 0.5));
+scene.add(new THREE.HemisphereLight(0xfff0dd, 0xcfc0ae, 0.4));
 
 // ─── BALL STATE ─────────────────────────────────────────────────────────────
 let ball = null;
@@ -49,10 +46,10 @@ let currentSection = 'hero';
 // ─── SECTION WAYPOINTS ──────────────────────────────────────────────────────
 // Smaller scales, repositioned so the ball never blocks content.
 const SECTIONS = {
-  hero:   { x: 0.15,  y: -0.05, z: 0,    scale: 0.95 }, // center-right, text overlaps left
-  stats:  { x: 2.4,   y: 0.4,   z: -1.5, scale: 0.50 },
-  how:    { x: -2.6,  y: 0,     z: 0,    scale: 0.78 }, // half off left screen
-  footer: { x: 1.9,   y: -1.4,  z: -2,   scale: 0.75 },
+  hero:   { x: 0.7,  y: -1.2, z: 0,    scale: 1.05 }, // center-right, bottom half off viewport
+  stats:  { x: 2.55, y: 0.45, z: 0,    scale: 0.65 }, // right edge, ball clips off right
+  how:    { x: -2.6, y: 0,    z: 0,    scale: 0.78 }, // half off left screen
+  footer: { x: 1.9,  y: -1.4, z: -2,   scale: 0.75 },
 };
 
 // ─── LOAD BALL ──────────────────────────────────────────────────────────────
@@ -77,9 +74,10 @@ loader.load('/models/basketball.glb', (gltf) => {
   ball.traverse((child) => {
     if (child.isMesh && child.material) {
       const m = child.material;
-      m.envMapIntensity = 0.7;
-      if (m.roughness !== undefined) m.roughness = Math.max(0.42, (m.roughness ?? 0.5) * 0.9);
-      if (m.metalness !== undefined) m.metalness = Math.min(0.06, m.metalness ?? 0);
+      m.envMapIntensity = 0.2;
+      if (m.roughness !== undefined) m.roughness = Math.min(1.0, Math.max(0.72, (m.roughness ?? 0.5) * 1.3));
+      if (m.metalness !== undefined) m.metalness = 0;
+      if (m.color) m.color.multiplyScalar(0.84); // slightly darker, sandy tone
       m.needsUpdate = true;
     }
   });
