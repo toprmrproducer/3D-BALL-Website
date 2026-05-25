@@ -47,7 +47,7 @@ let currentSection = 'hero';
 // Smaller scales, repositioned so the ball never blocks content.
 // BALL_SCALE 1.77 = 2.5× increase from 0.71.
 // Each section has a DIFFERENT y so the ball visibly moves as you scroll.
-const BALL_SCALE = 1.77;
+const BALL_SCALE = 0.885;
 const SECTIONS = {
   hero:   { x: 0.25,  y: -0.45, z: 0, scale: BALL_SCALE }, // center, lower half off screen bottom
   stats:  { x: 2.2,   y:  0.0,  z: 0, scale: BALL_SCALE }, // right side, center height
