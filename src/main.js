@@ -47,12 +47,13 @@ let currentSection = 'hero';
 // Smaller scales, repositioned so the ball never blocks content.
 // BALL_SCALE 1.77 = 2.5× increase from 0.71.
 // Each section has a DIFFERENT y so the ball visibly moves as you scroll.
-const BALL_SCALE = 0.885;
+const BALL_SCALE = 0.97;          // +10% from 0.885
+const FOOTER_SCALE = 0.5;          // shrunk specifically for footer (per user)
 const SECTIONS = {
-  hero:   { x: 0.25,  y: -0.45, z: 0, scale: BALL_SCALE }, // center, lower half off screen bottom
-  stats:  { x: 2.2,   y:  0.0,  z: 0, scale: BALL_SCALE }, // right side, center height
-  how:    { x: -2.2,  y:  0.0,  z: 0, scale: BALL_SCALE }, // left side, center height
-  footer: { x: 2.6,   y: -1.1,  z: -1.2, scale: BALL_SCALE }, // tucked bottom-right, pushed back
+  hero:   { x: 0.5,   y: -0.45, z: 0,    scale: BALL_SCALE   }, // pulled right so text overlaps ball
+  stats:  { x: 2.2,   y:  0.0,  z: 0,    scale: BALL_SCALE   },
+  how:    { x: -2.2,  y:  0.0,  z: 0,    scale: BALL_SCALE   },
+  footer: { x: 2.5,   y: -1.3,  z: -2.0, scale: FOOTER_SCALE }, // small, far corner, pushed back
 };
 
 // ─── LOAD BALL ──────────────────────────────────────────────────────────────
@@ -266,6 +267,23 @@ const navEl = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navEl.classList.toggle('scrolled', window.scrollY > 80);
 }, { passive: true });
+
+// ─── EVENT CARD — premium hover (scale + lift) ──────────────────────────────
+const eventCardEl = document.getElementById('event-card');
+if (eventCardEl) {
+  eventCardEl.addEventListener('mouseenter', () => {
+    gsap.to(eventCardEl, {
+      scale: 1.035, y: -6,
+      duration: 0.55, ease: 'power3.out', overwrite: 'auto'
+    });
+  });
+  eventCardEl.addEventListener('mouseleave', () => {
+    gsap.to(eventCardEl, {
+      scale: 1.0, y: 0,
+      duration: 0.55, ease: 'power3.out', overwrite: 'auto'
+    });
+  });
+}
 
 // ─── RESIZE ─────────────────────────────────────────────────────────────────
 window.addEventListener('resize', () => {

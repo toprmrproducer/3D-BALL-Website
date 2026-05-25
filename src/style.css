@@ -251,10 +251,38 @@ body {
 ============================================= */
 .event-card {
   position: relative; z-index: 10;
-  width: 290px; min-width: 290px; border-radius: 28px;
+  width: 320px; min-width: 320px; border-radius: 28px;
   overflow: hidden;
   opacity: 0; transform: translateX(-40px);
   will-change: transform, opacity;
+  transition: transform 0.5s cubic-bezier(.2,.7,.2,1);
+}
+.event-card:hover {
+  /* GSAP also drives scale, but CSS provides fallback */
+  transform: translateX(0) scale(1.025);
+}
+.event-card .ec-bend,
+.event-card .ec-face,
+.event-card .ec-edge {
+  transition: backdrop-filter 0.5s var(--ease-out),
+              background 0.5s var(--ease-out),
+              box-shadow 0.5s var(--ease-out);
+}
+.event-card:hover .ec-bend {
+  backdrop-filter: blur(56px) saturate(240%);
+  -webkit-backdrop-filter: blur(56px) saturate(240%);
+}
+.event-card:hover .ec-edge {
+  background: rgba(255,255,255,0.22);
+  box-shadow:
+    inset 3px 3px 4px rgba(255,255,255,0.6),
+    inset -3px -3px 4px rgba(255,255,255,0.3);
+}
+.event-card:hover .ec-face {
+  box-shadow:
+    0 8px 12px rgba(0,0,0,0.18),
+    0 0 40px rgba(0,0,0,0.1),
+    0 0 60px rgba(255,255,255,0.18);
 }
 /* Layer 1: Bend — backdrop blur + SVG distortion warp */
 .ec-bend {
@@ -277,7 +305,7 @@ body {
 .ec-edge {
   position: absolute; inset: 0; z-index: 2;
   border-radius: 28px;
-  background: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.32);
   border: 1.5px solid rgba(255,255,255,0.7);
   box-shadow:
     inset 3px 3px 3px rgba(255,255,255,0.5),
@@ -432,9 +460,37 @@ body {
   font-family: var(--font-display);
   font-size: clamp(4.5rem, 9.5vw, 9rem);
   line-height: 0.88; letter-spacing: -1.5px;
-  color: var(--ink); text-transform: uppercase; margin-bottom: 1.4rem;
+  text-transform: uppercase; margin-bottom: 1.4rem;
   /* Mix-blend creates the see-through effect over the ball */
   mix-blend-mode: multiply;
+  display: flex; flex-direction: column;
+}
+.hl-line {
+  display: inline-block;
+  width: max-content;
+  background: linear-gradient(110deg,
+    #0a0a0a 0%,
+    #0a0a0a 40%,
+    #3d3d3d 50%,
+    #0a0a0a 60%,
+    #0a0a0a 100%);
+  background-size: 220% 100%;
+  background-position: 100% 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  cursor: pointer;
+  transition:
+    background-position 0.9s cubic-bezier(.2,.7,.2,1),
+    transform 0.5s cubic-bezier(.2,.7,.2,1),
+    letter-spacing 0.5s var(--ease-out);
+  will-change: background-position, transform;
+}
+.hl-line:hover {
+  background-position: 0% 0%;
+  transform: translateX(10px);
+  letter-spacing: 0px;
 }
 .hero-brand {
   font-family: var(--font-display); font-size: 1.5rem;
@@ -636,8 +692,9 @@ body {
 .site-footer {
   position: relative; overflow: hidden;
   background: var(--ink);
-  padding: 6rem 4rem 0;
+  padding: 10rem 4rem 1rem;
   color: rgba(255,255,255,0.75);
+  min-height: 100vh;
 }
 .footer-bg-ball {
   position: absolute; bottom: -8rem; right: -8rem;
