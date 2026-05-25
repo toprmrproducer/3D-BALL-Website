@@ -14,7 +14,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.84;
+renderer.toneMappingExposure = 0.71;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 // ─── SCENE & CAMERA ─────────────────────────────────────────────────────────
@@ -45,11 +45,14 @@ let currentSection = 'hero';
 
 // ─── SECTION WAYPOINTS ──────────────────────────────────────────────────────
 // Smaller scales, repositioned so the ball never blocks content.
+// All sections share the SAME scale so the ball never resizes during scroll.
+// y: -1.4 puts the ball center near the viewport bottom — top half visible, bottom off-screen.
+const BALL_SCALE = 0.71;
 const SECTIONS = {
-  hero:   { x: 0.35, y: -1.2, z: 0,    scale: 0.89 }, // center, bottom half off viewport
-  stats:  { x: 2.55, y: 0.45, z: 0,    scale: 0.65 }, // right edge, ball clips off right
-  how:    { x: -2.6, y: 0,    z: 0,    scale: 0.78 }, // half off left screen
-  footer: { x: 1.9,  y: -1.4, z: -2,   scale: 0.75 },
+  hero:   { x: 0.35,  y: -1.4, z: 0, scale: BALL_SCALE }, // center, bottom half off
+  stats:  { x: 2.55,  y: -1.4, z: 0, scale: BALL_SCALE }, // right edge, bottom off
+  how:    { x: -2.4,  y: -1.4, z: 0, scale: BALL_SCALE }, // left edge, bottom off
+  footer: { x: 0.5,   y: -1.4, z: 0, scale: BALL_SCALE }, // center, bottom off
 };
 
 // ─── LOAD BALL ──────────────────────────────────────────────────────────────

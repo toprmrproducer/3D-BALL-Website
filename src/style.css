@@ -521,8 +521,15 @@ body {
   line-height: 1; color: rgba(0,0,0,0.025);
   pointer-events: none; user-select: none; white-space: nowrap;
 }
-.how-ball-zone { flex: 0 0 340px; height: 500px; position: relative; }
-.how-content { flex: 1; max-width: 560px; }
+.how-ball-zone { display: none; }
+.how-content {
+  flex: 1; max-width: 600px;
+  text-align: right;
+  margin-left: auto;
+}
+.how-content .section-eyebrow { text-align: right; }
+.how-content .section-headline { text-align: right; }
+.how-content .cta-row { justify-content: flex-end; }
 .steps-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
 .step-item {
   display: flex; align-items: center; gap: 1.2rem;
