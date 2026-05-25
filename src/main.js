@@ -14,7 +14,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
+renderer.toneMappingExposure = 0.84;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 // ─── SCENE & CAMERA ─────────────────────────────────────────────────────────
@@ -46,7 +46,7 @@ let currentSection = 'hero';
 // ─── SECTION WAYPOINTS ──────────────────────────────────────────────────────
 // Smaller scales, repositioned so the ball never blocks content.
 const SECTIONS = {
-  hero:   { x: 0.7,  y: -1.2, z: 0,    scale: 1.05 }, // center-right, bottom half off viewport
+  hero:   { x: 0.35, y: -1.2, z: 0,    scale: 0.89 }, // center, bottom half off viewport
   stats:  { x: 2.55, y: 0.45, z: 0,    scale: 0.65 }, // right edge, ball clips off right
   how:    { x: -2.6, y: 0,    z: 0,    scale: 0.78 }, // half off left screen
   footer: { x: 1.9,  y: -1.4, z: -2,   scale: 0.75 },
@@ -77,7 +77,7 @@ loader.load('/models/basketball.glb', (gltf) => {
       m.envMapIntensity = 0.2;
       if (m.roughness !== undefined) m.roughness = Math.min(1.0, Math.max(0.72, (m.roughness ?? 0.5) * 1.3));
       if (m.metalness !== undefined) m.metalness = 0;
-      if (m.color) m.color.multiplyScalar(0.84); // slightly darker, sandy tone
+      if (m.color) m.color.multiplyScalar(0.72); // darker, sandy tone
       m.needsUpdate = true;
     }
   });
