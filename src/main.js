@@ -181,6 +181,10 @@ window.addEventListener('touchend', onDragEnd);
 function lerp(a, b, t) { return a + (b - a) * t; }
 function easeInOut(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
 
+// Depth recession: the lower the ball on screen, the further it recedes.
+// Gives a premium parallax-depth feel — ball shrinks as it "sinks."
+function depthOffset(y) { return Math.min(0, y) * 0.3; }
+
 function setupScrollBall() {
   // Hero → Stats
   ScrollTrigger.create({
@@ -189,9 +193,10 @@ function setupScrollBall() {
     onUpdate: (self) => {
       if (!ball || isDragging) return;
       const t = self.progress;
+      const ly = lerp(SECTIONS.hero.y, SECTIONS.stats.y, easeInOut(t));
       ball.position.x = lerp(SECTIONS.hero.x, SECTIONS.stats.x, t);
-      ball.position.y = lerp(SECTIONS.hero.y, SECTIONS.stats.y, easeInOut(t));
-      ball.position.z = lerp(SECTIONS.hero.z, SECTIONS.stats.z, t);
+      ball.position.y = ly;
+      ball.position.z = lerp(SECTIONS.hero.z, SECTIONS.stats.z, t) + depthOffset(ly);
       ball.scale.setScalar(lerp(baseScale * SECTIONS.hero.scale, baseScale * SECTIONS.stats.scale, t));
     },
     onEnter: () => { disableDrag(); currentSection = 'stats'; },
@@ -205,9 +210,10 @@ function setupScrollBall() {
     onUpdate: (self) => {
       if (!ball || isDragging) return;
       const t = self.progress;
+      const ly = lerp(SECTIONS.stats.y, SECTIONS.how.y, easeInOut(t));
       ball.position.x = lerp(SECTIONS.stats.x, SECTIONS.how.x, t);
-      ball.position.y = lerp(SECTIONS.stats.y, SECTIONS.how.y, easeInOut(t));
-      ball.position.z = lerp(SECTIONS.stats.z, SECTIONS.how.z, t);
+      ball.position.y = ly;
+      ball.position.z = lerp(SECTIONS.stats.z, SECTIONS.how.z, t) + depthOffset(ly);
       ball.scale.setScalar(lerp(baseScale * SECTIONS.stats.scale, baseScale * SECTIONS.how.scale, t));
     },
     onEnter:     () => { currentSection = 'how'; },
@@ -221,9 +227,10 @@ function setupScrollBall() {
     onUpdate: (self) => {
       if (!ball || isDragging) return;
       const t = self.progress;
+      const ly = lerp(SECTIONS.how.y, SECTIONS.footer.y, easeInOut(t));
       ball.position.x = lerp(SECTIONS.how.x, SECTIONS.footer.x, t);
-      ball.position.y = lerp(SECTIONS.how.y, SECTIONS.footer.y, easeInOut(t));
-      ball.position.z = lerp(SECTIONS.how.z, SECTIONS.footer.z, t);
+      ball.position.y = ly;
+      ball.position.z = lerp(SECTIONS.how.z, SECTIONS.footer.z, t) + depthOffset(ly);
       ball.scale.setScalar(lerp(baseScale * SECTIONS.how.scale, baseScale * SECTIONS.footer.scale, t));
     },
     onEnter:     () => { currentSection = 'footer'; },
