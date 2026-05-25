@@ -69,56 +69,53 @@
 
       <!-- Content -->
       <div class="ec-content">
-        <div class="event-card-img">
-          <svg class="court-svg" viewBox="0 0 250 165" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="250" height="165" fill="#111"/>
-            <rect x="8" y="8" width="234" height="149" rx="2" stroke="#2a2a2a" stroke-width="1"/>
-            <line x1="125" y1="8" x2="125" y2="157" stroke="#2a2a2a" stroke-width="1"/>
-            <circle cx="125" cy="82" r="22" stroke="#2a2a2a" stroke-width="1" fill="none"/>
-            <rect x="8" y="49" width="52" height="66" stroke="#2a2a2a" stroke-width="1" fill="none"/>
-            <rect x="190" y="49" width="52" height="66" stroke="#2a2a2a" stroke-width="1" fill="none"/>
-            <circle cx="34" cy="82" r="10" stroke="#ff6600" stroke-width="2.5" fill="none"/>
-            <circle cx="216" cy="82" r="10" stroke="#ff6600" stroke-width="2.5" fill="none"/>
-          </svg>
-          <div class="event-overlay-btns">
-            <button class="mini-glass-btn active-btn">Complete</button>
-            <button class="mini-glass-btn">Follow</button>
+        <!-- Photo with overlay pills + title -->
+        <div class="ec-image">
+          <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=560&q=80" alt="Street court game" />
+          <div class="ec-img-shade"></div>
+          <div class="ec-img-top">
+            <span class="ec-time-pill">12 min from</span>
+            <span class="ec-home-pill"><span class="home-dot"></span>Home</span>
+          </div>
+          <div class="ec-img-bottom">
+            <h3 class="ec-title">Boooys night out</h3>
+            <p class="ec-date">May 12, 9 PM</p>
           </div>
         </div>
 
-        <div class="ec-body">
-          <h3 class="ec-title">Boys Night Out</h3>
-          <p class="ec-date">May 12, 9 PM</p>
-        </div>
-
+        <!-- Organizer row with avatars on right -->
         <div class="ec-organizer">
           <div class="org-av grad-1"></div>
           <div class="org-info">
             <span class="org-name">Matthew Walker</span>
-            <span class="org-role">Organizer</span>
+            <span class="org-role">organizer</span>
+          </div>
+          <div class="ec-players">
+            <div class="av-stack">
+              <div class="mini-av grad-2"></div>
+              <div class="mini-av grad-3"></div>
+              <div class="mini-av grad-4"></div>
+            </div>
+            <span class="plus-badge">+3</span>
           </div>
         </div>
 
-        <div class="ec-players">
-          <div class="av-stack">
-            <div class="mini-av grad-2"></div>
-            <div class="mini-av grad-3"></div>
-            <div class="mini-av grad-4"></div>
-          </div>
-          <span class="plus-badge">+3 joined</span>
-        </div>
-
+        <!-- Venue -->
         <div class="ec-venue">
-          <span class="venue-dot">📍</span>
-          <div>
-            <span class="venue-name">Shōten</span>
-            <span class="venue-addr">12/3 Sakurai Place, Seikyo-ku, Kyoto</span>
-          </div>
+          <span class="venue-name">Shōten</span>
+          <span class="venue-addr">123 Sakura Park,<br>Sakyo-ku, Kyoto</span>
         </div>
 
-        <button class="ec-btn ghost-btn">◎ Check on map</button>
-        <button class="ec-btn dark-btn">⊕ Join game</button>
-        <button class="ec-btn text-btn">✓ Followed</button>
+        <!-- Buttons -->
+        <button class="ec-btn ghost-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Check on map
+        </button>
+        <button class="ec-btn dark-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Join game
+        </button>
+        <p class="ec-free">✓ Free event</p>
       </div>
     </div>
 

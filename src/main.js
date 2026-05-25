@@ -52,7 +52,7 @@ const SECTIONS = {
   hero:   { x: 0.25,  y: -0.45, z: 0, scale: BALL_SCALE }, // center, lower half off screen bottom
   stats:  { x: 2.2,   y:  0.0,  z: 0, scale: BALL_SCALE }, // right side, center height
   how:    { x: -2.2,  y:  0.0,  z: 0, scale: BALL_SCALE }, // left side, center height
-  footer: { x: 0.2,   y: -0.35, z: 0, scale: BALL_SCALE }, // center, slightly lower
+  footer: { x: 2.6,   y: -1.1,  z: -1.2, scale: BALL_SCALE }, // tucked bottom-right, pushed back
 };
 
 // ─── LOAD BALL ──────────────────────────────────────────────────────────────
